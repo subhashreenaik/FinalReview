@@ -24,7 +24,12 @@ echo $((($1%$2)+$3))
 }
 output4="$(computation4 $a $b $c)"
 
-echo $output1
+echo "Result of a+b*c expression is" $output1
+echo "Result of a*b+c expression is" $output2
+echo "Result of c+a/b expression is" $output3
+echo "Result of a%b+c expression is" $output4
+
+
 
 
 
@@ -41,7 +46,7 @@ for i in "${computation[@]}"
 do
     ComputationArray+=($i)
 done
- echo ${ComputationArray[@]}
+ echo "The values are read from the dictionary to array" ${ComputationArray[@]}
 
 for (( i = 0; i <= 3 ; i++ ))
 do

@@ -32,7 +32,7 @@ echo "Result: Percentage"
 echo "H:$((count['H']*100/maxlimit))%"
 echo "T:$((count['T']*100/maxlimit))%"
 
-maxlimit2=1000
+
 
 declare -A countDoublet
 countDoublet['HH']=0
@@ -61,18 +61,18 @@ combination()
 }
 
 
-for i in $(seq 1 ${maxlimit2})
+for i in $(seq 1 ${maxlimit})
 do
    combination 
 done
 echo "'HH','HT','TH' and 'TT' value are in dictionary " ${countDoublet[@]}
 echo "Result: Percentage"
-echo "HH:$((countDoublet['HH']*100/maxlimit2))%"
-echo "HT:$((countDoublet['HT']*100/maxlimit2))%"
-echo "TH:$((countDoublet['TH']*100/maxlimit2))%"
-echo "TT:$((countDoublet['TT']*100/maxlimit2))%"
+echo "HH:$((countDoublet['HH']*100/maxlimit))%"
+echo "HT:$((countDoublet['HT']*100/maxlimit))%"
+echo "TH:$((countDoublet['TH']*100/maxlimit))%"
+echo "TT:$((countDoublet['TT']*100/maxlimit))%"
 
-maxlimit3=1000
+
 
 declare -A countTriplet
 countTriplet['HHH']=0
@@ -125,19 +125,45 @@ combination()
 }
 
 
-for i in $(seq 1 ${maxlimit3})
+for i in $(seq 1 ${maxlimit})
 do
    combination 
 done
 
 echo "Result: Percentage"
-echo "HHH:$((countTriplet['HHH']*100/maxlimit3))%"
-echo "HHT:$((countTriplet['HHT']*100/maxlimit3))%"
-echo "HTH:$((countTriplet['HTH']*100/maxlimit3))%"
-echo "HTT:$((countTriplet['HTT']*100/maxlimit3))%"
-echo "THH:$((countTriplet['THH']*100/maxlimit3))%"
-echo "THT:$((countTriplet['THT']*100/maxlimit3))%"
-echo "TTH:$((countTriplet['TTH']*100/maxlimit3))%"
-echo "TTT:$((countTriplet['TTT']*100/maxlimit3))%"
+echo "HHH:$((countTriplet['HHH']*100/maxlimit))%"
+echo "HHT:$((countTriplet['HHT']*100/maxlimit))%"
+echo "HTH:$((countTriplet['HTH']*100/maxlimit))%"
+echo "HTT:$((countTriplet['HTT']*100/maxlimit))%"
+echo "THH:$((countTriplet['THH']*100/maxlimit))%"
+echo "THT:$((countTriplet['THT']*100/maxlimit))%"
+echo "TTH:$((countTriplet['TTH']*100/maxlimit))%"
+echo "TTT:$((countTriplet['TTT']*100/maxlimit))%"
+
+max_name1=""
+max_name2=""
+max_name3=""
+
+max=0
+for key in ${!count[@]}; do
+    value=${count[${key}]};
+    if (( $value > $max )); then max=$value ; max_name1=${key} ; fi;
+done
+
+max=0
+for key in ${!countDoublet[@]}; do
+    value=${countDoublet[${key}]};
+    if (( $value > $max )); then max=$value ; max_name2=${key} ; fi;
+done
+
+max=0
+for key in ${!countTriplet[@]}; do
+    value=${countTriplet[${key}]};
+    if (( $value > $max )); then max=$value ; max_name3=${key} ; fi;
+done
+
+echo "Winner single, name :${max_name1}, percentage:$((count[${max_name1}]*100/maxlimit))"
+echo "Winner double, name :${max_name2}, percentage:$((countDoublet[${max_name2}]*100/maxlimit))"
+echo "Winner tripple, name:${max_name3}, percentage:$((countTriplet[${max_name3}]*100/maxlimit))"
 
 
